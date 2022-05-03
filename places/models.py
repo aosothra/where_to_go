@@ -41,7 +41,10 @@ class Image(models.Model):
 
     index = models.PositiveIntegerField(
         verbose_name='Приоритет при отображении',
-        default=0
+        default=0,
+        blank=False,
+        null=False,
+        db_index=True
     )
 
     place = models.ForeignKey(
@@ -50,6 +53,9 @@ class Image(models.Model):
         verbose_name='Место',
         related_name='images'
     )
+
+    class Meta:
+        ordering = ['index']
 
 
     def __str__(self) -> str:
