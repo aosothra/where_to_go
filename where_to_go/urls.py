@@ -23,8 +23,8 @@ from places import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('place/<int:place_id>', views.retrive_place_by_id),
-    path('', views.show_map),
+    path('place/<int:place_id>', views.retrive_place_by_id, name='place-by-id'),
+    path('', views.show_map, name='map'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

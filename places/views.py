@@ -1,13 +1,11 @@
-from textwrap import indent
-from django.http import HttpResponse, JsonResponse
-from django.template import loader
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
-from places.models import Place, Image
+from places.models import Place
 
 # Create your views here.
 def show_map(request):
-    template = loader.get_template('index.html')
 
     places_GeoJson = {
         'type': 'FeatureCollection',
@@ -24,7 +22,7 @@ def show_map(request):
             'properties': {
                 'title': place.title,
                 'placeId': f'place_{place.id}',
-                'detailsUrl': f'/place/{place.id}'
+                'detailsUrl': reverse('place-by-id', kwargs={'place_id':place.id})
             }
         }
         places_GeoJson['features'].append(place_feature)
@@ -35,11 +33,8 @@ def show_map(request):
 
 
 def retrive_place_by_id(request, place_id):
-    try:
-        place = Place.objects.prefetch_related('images').get(id=place_id)
-    except Place.DoesNotExist:
-        return JsonResponse({'error':'place not found'})
-
+    place = get_object_or_404(Place, id=place_id)
+    
     place_serialized = {
         "title": place.title,
         "imgs": [image.image_file.url for image in place.images.all()],
