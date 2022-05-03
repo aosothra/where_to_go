@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.forms import Textarea
 from django.utils.html import format_html
 
 from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminBase
