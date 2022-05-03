@@ -21,5 +21,5 @@ from  where_to_go import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.welcome)
+    path('', views.show_map)
 ]
