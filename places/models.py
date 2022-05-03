@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Place(models.Model):
+    
     title = models.CharField(
         verbose_name='Название',
         max_length=200, 
@@ -30,3 +31,26 @@ class Place(models.Model):
     
     def __str__(self) -> str:
         return f'{self.title} ({self.lat}, {self.lng})'
+
+
+class Image(models.Model):
+    
+    image_file = models.ImageField(
+        'Изображение'
+    )
+
+    index = models.PositiveIntegerField(
+        verbose_name='Приоритет при отображении',
+        default=0
+    )
+
+    place = models.ForeignKey(
+        Place,
+        on_delete=models.DO_NOTHING,
+        verbose_name='Место',
+        related_name='images'
+    )
+
+
+    def __str__(self) -> str:
+        return f'{self.index}-{self.place.title}'
