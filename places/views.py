@@ -8,8 +8,30 @@ from places.models import Place, Image
 # Create your views here.
 def show_map(request):
     template = loader.get_template('index.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
+
+    places_GeoJson = {
+        'type': 'FeatureCollection',
+        'features': []
+    }
+    
+    for place in Place.objects.all():
+        place_feature = {
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [place.lat, place.lng]
+            },
+            'properties': {
+                'title': place.title,
+                'placeId': f'place_{place.id}',
+                'detailsUrl': f'/place/{place.id}'
+            }
+        }
+        places_GeoJson['features'].append(place_feature)
+    
+
+    context = {'places': places_GeoJson}
+    return render(request, 'index.html', context)
 
 
 def retrive_place_by_id(request, place_id):
