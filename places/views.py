@@ -4,8 +4,9 @@ from django.urls import reverse
 
 from places.models import Place
 
-# Create your views here.
+
 def show_map(request):
+    '''Collect places from DB and place them on the map'''
 
     places_GeoJson = {
         'type': 'FeatureCollection',
@@ -33,6 +34,8 @@ def show_map(request):
 
 
 def retrive_place_by_id(request, place_id):
+    '''Retrive detailed information about particular place'''
+    
     place = get_object_or_404(Place, id=place_id)
     
     place_serialized = {
