@@ -49,10 +49,11 @@ class Image(models.Model):
 
     place = models.ForeignKey(
         Place,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.CASCADE,
         verbose_name='Место',
         related_name='images'
     )
+
 
     class Meta:
         ordering = ['index']
