@@ -32,7 +32,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', False)
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", [])
 
 CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', True)
 
@@ -133,10 +133,8 @@ MEDIA_URL = '/media/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_ROOT = env('STATIC_ROOT', '')
-STATICFILES_DIRS = [
-     BASE_DIR / "static",
-]
+STATIC_ROOT = env('STATIC_ROOT', 'staticfiles')
+    
 
 STATIC_URL = '/static/'
 
