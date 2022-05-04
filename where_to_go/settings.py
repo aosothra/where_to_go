@@ -13,6 +13,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
+from environs import Env
+
+
+env = Env()
+env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,13 +27,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hn&-82a+i7l5exmk*9c_i!g0bmc#39w*r1b7&=(0ixpym=!lf^'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', False)
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
+CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', True)
+
+SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE', True)
 
 # Application definition
 
@@ -118,13 +127,13 @@ USE_L10N = True
 USE_TZ = True
 
 # Media files
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = env('MEDIA_ROOT', BASE_DIR / 'media')
 MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_ROOT = ''
+STATIC_ROOT = env('STATIC_ROOT', '')
 STATICFILES_DIRS = [
      BASE_DIR / "static",
 ]
