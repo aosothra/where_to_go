@@ -6,6 +6,8 @@ As a User, you will be greeted by an interactive map with numerous markers repre
 
 As an Administrator, you will be able to create/edit/delete those markers including corresponding data.
 
+You can check the demo of the site [here](https://bakutso.pythonanywhere.com/)! (link may expire in the future)
+
 The project is built upon [Django Web Framework](https://docs.djangoproject.com/en/4.0/)
 
 ## Basic installation
@@ -69,7 +71,33 @@ This will start a development server on http://127.0.0.1:8000. If you've followe
 
 For that, we shall use Django built-in admin application, which can be accessed over http://127.0.0.1:8000/admin/ using your previously provided admin credentials. 
 
-Now you can access `Places` table editor.
+Now you can access `Places` table editor to begin populating the database.
+
+### `load_place` utility command
+
+Adding places one-by-one from the very beginning may become quite cumbersome and tiring. To avoid that you may use special `load_place` command:
+
+```
+python3 manage.py load_place <url>
+```
+
+where URL must lead to a JSON file with following schema:
+
+``` JavaScript
+{
+    "title": "New place title",
+    "imgs": [
+        "https://url.to/your/image.jpg",
+        ...
+    ],
+    "description_short": "Short description of new place",
+    "description_long": "Long description of new place (allows HTML for styling)",
+    "coordinates": {
+        "lng": "37.623191",
+        "lat": "55.753989"
+    }
+}
+```
 
 ## Basic Usage
 
