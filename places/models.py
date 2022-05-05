@@ -7,7 +7,10 @@ class Place(models.Model):
     title = models.CharField(
         verbose_name='Название',
         max_length=200, 
-        blank=False
+        blank=False,
+        null=False,
+        db_index=True,
+        unique=True
     )
 
     description_short = models.TextField(
