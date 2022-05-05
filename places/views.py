@@ -13,12 +13,12 @@ def show_map(request):
         'features': []
     }
     
-    for place in Place.objects.all():
+    for place in Place.objects.all().iterator():
         place_feature = {
             'type': 'Feature',
             'geometry': {
                 'type': 'Point',
-                'coordinates': [place.lat, place.lng]
+                'coordinates': [place.lng, place.lat]
             },
             'properties': {
                 'title': place.title,
@@ -35,7 +35,7 @@ def show_map(request):
 
 def retrive_place_by_id(request, place_id):
     '''Retrive detailed information about particular place'''
-    
+
     place = get_object_or_404(Place, id=place_id)
     
     place_serialized = {
