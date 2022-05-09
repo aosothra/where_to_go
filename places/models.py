@@ -6,9 +6,7 @@ class Place(models.Model):
     
     title = models.CharField(
         verbose_name='Название',
-        max_length=200, 
-        blank=False,
-        null=False,
+        max_length=200,
         db_index=True,
         unique=True
     )
@@ -45,8 +43,6 @@ class Image(models.Model):
     index = models.PositiveIntegerField(
         verbose_name='Приоритет при отображении',
         default=0,
-        blank=False,
-        null=False,
         db_index=True
     )
 
